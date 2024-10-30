@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  border-bottom: 1px solid #48465B;
+}
+
+.header span {
+  cursor: pointer;
+  padding: 0.5rem;
+  font-weight: 600;
+}
