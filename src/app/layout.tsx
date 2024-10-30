@@ -5,6 +5,7 @@ import "./globals.css"
 import styles from "./header.module.css"
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,17 +28,35 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
+  
   const router = useRouter()
+  const pathname = usePathname()
+
+  const renderHeader = () => {
+    switch (pathname) {
+      case '/':
+        return <header className={styles.header}>
+                <span>VOLTAR</span>
+                <Image src="/logo.png" alt="Laon" width={90} height={40} />
+                <span onClick={() => router.push('/register') }>CADASTRAR</span>
+              </header>
+      case '/register':
+        return <header className={styles.header}>
+                  <span>VOLTAR</span>
+                  <Image src="/logo.png" alt="Laon" width={90} height={40} />
+                  <span>ENTRAR</span>
+                </header>
+      case '/contato':
+        return <header>Header da Página de Contato</header>
+      default:
+        return <header>Header Padrão</header>;
+    }
+  }
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header className={styles.header}>
-          <span>VOLTAR</span>
-          <Image src="/logo.png" alt="Laon" width={90} height={40} />
-          <span onClick={() => router.push('/register') }>CADASTRAR</span>
-        </header>
+        {renderHeader()}
         {children}
       </body>
     </html>
